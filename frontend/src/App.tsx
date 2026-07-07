@@ -1,9 +1,18 @@
 import React from 'react'
+import { Route, Routes, Navigate } from 'react-router-dom'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Dashboard from './pages/Dashboard'
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <div>
-      <h1>Hello World</h1>
+      <Routes>
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </div>
   )
 }
