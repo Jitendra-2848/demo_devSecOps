@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../lib/api';
 
-
-
-
-
 const Login: React.FC = () => {
+    const navigate = useNavigate();
     const [username,setUsername] = useState<string>("");
     const [password,setPassword] = useState<string>("");
     const [error,setError] = useState<any>("");
@@ -20,7 +17,7 @@ const Login: React.FC = () => {
         setError("");
     },[error])
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!username || !password ) {
             toast.error("All field are required!")
@@ -35,6 +32,7 @@ const Login: React.FC = () => {
             console.log(response.data);
             if(response.status == 200){
                 toast.success(response.data.message);
+                navigate("/dashboard");
             }
         } catch (err: any) {
             console.log(err.response);       // Full response
@@ -89,7 +87,7 @@ const Login: React.FC = () => {
             const apiBaseUrl = (import.meta as any).env?.VITE_API_URL || 'http://localhost:8000';
             window.location.href = `${apiBaseUrl}/auth/google`;
           }}
-          className="w-full flex items-center justify-center gap-3 rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-700 font-semibold hover:bg-slate-50 active:scale-98 transition-all shadow-sm"
+          className="w-full flex items-center justify-center gap-3 rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-700 font-semibold hover:bg-slate-50 active:scale-98 transition-all shadow-sm cursor-pointer"
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
             <g transform="matrix(1, 0, 0, 1, 0, 0)">

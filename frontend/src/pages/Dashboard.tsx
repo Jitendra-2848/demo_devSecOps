@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { api, setAccessToken } from '../lib/api';
+import { api } from '../lib/api';
 
 interface UserInfo {
     id: number;
@@ -40,7 +40,6 @@ const Dashboard: React.FC = () => {
         } catch (err) {
             console.error("Logout failed:", err);
         } finally {
-            setAccessToken(null);
             navigate("/login");
         }
     };

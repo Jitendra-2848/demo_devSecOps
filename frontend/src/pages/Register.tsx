@@ -20,10 +20,11 @@ const Register: React.FC = () => {
         toast.error(error);
         setError("");
     },[error])
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!username || !password || !email) {
-            toast.error("All field are required!")
+            toast.error("All fields are required!")
+            return;
         }
         const registerData = {
             username: username,
@@ -34,7 +35,7 @@ const Register: React.FC = () => {
             const response = await api.post("/auth/register", registerData);
 
             console.log(response.data);
-            if(response?.ok){
+            if(response.status === 201){
                 toast.success(response.data.message);
             }
         } catch (err: any) {
@@ -72,7 +73,7 @@ const Register: React.FC = () => {
                     <label className="block text-slate-700 text-sm font-medium">Email</label>
                     <input
                         value={email}
-                        type="password"
+                        type="email"
                         onChange={(event) => setEmail(event.target.value)}
                         className="w-full rounded-2xl border border-slate-300 px-4 py-3 text-black focus:outline-none"
                         placeholder="Enter your Email "
