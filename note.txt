@@ -1,0 +1,94 @@
+Ride Booking App
+``
+├── Authentication
+│     ├── JWT
+│     ├── Google OAuth
+│
+├── Maps
+│     ├── Leaflet
+│     ├── OpenStreetMap
+│
+├── Location Search
+│     ├── Nominatim
+│
+├── Route
+│     ├── OSRM
+│
+├── Backend
+│     ├── Express
+│     ├── PostgreSQL
+│
+├── Real Time
+│     ├── Socket.IO
+│
+└── Payments (optional)
+``
+
+
+OpenStreetMap
+Leaflet
+Nominatim
+OSRM
+react Leaflet
+
+
+
+flow 
+
+How a ride booking app uses them
+Step 1: Open the app
+
+Leaflet displays the map.
+
+Leaflet
+      │
+      ▼
+OpenStreetMap
+Step 2: User searches for pickup
+
+User types:
+
+Airport
+
+Your app calls Nominatim.
+
+Nominatim returns:
+
+Latitude
+Longitude
+Step 3: User chooses destination
+
+Again, use Nominatim.
+
+Step 4: Calculate route
+
+Send pickup and destination coordinates to OSRM.
+
+OSRM returns:
+
+Route
+Distance
+Duration
+Step 5: Draw the route
+
+Use a Polyline in Leaflet.
+
+<Polyline positions={coordinates} />
+
+Now the route appears on the map.
+
+Step 6: Calculate fare
+
+Example:
+
+fare = baseFare + (distance * ratePerKm);
+
+If:
+
+Base fare = ₹50
+Distance = 8 km
+Rate = ₹15/km
+
+Then:
+
+50 + (8 × 15) = ₹170
