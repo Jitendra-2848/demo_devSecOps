@@ -10,12 +10,40 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - app
+      - AuthService
+      - RiderService
+      - PaymentService
+      - TripService
 
   app:
     build: .
     image: oven/bun:latest
     ports:
       - "8000:8000"
+
+  AuthService:
+    build: ./AuthService
+    image: oven/bun:latest
+    ports:
+      - "8001:8000"
+    
+  PaymentService:
+    build: ./PaymentService
+    image: oven/bun:latest
+    ports:
+      - "8002:8000"
+  
+  RiderService:
+    build: ./RiderService
+    image: oven/bun:latest
+    ports:
+      - "8003:8000"
+  
+  TripService:
+    build: ./TripService
+    image: oven/bun:latest
+    ports:
+      - "8004:8000"
 
 volumes:
   shared-volume:
